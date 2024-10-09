@@ -31,7 +31,7 @@ jobs:
 
     - name: Deploy para EC2
       env:
-        PRIVATE_KEY: ${{ secrets.ECS_PRIVATE_KEY }}
+        PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
         USER: ubuntu
         HOST: 107.23.247.197
       run: |
