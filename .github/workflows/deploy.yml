@@ -36,7 +36,7 @@ jobs:
         HOST: 107.23.247.197
       run: |
         echo "$PRIVATE_KEY" > key-vollmed-deploy.pem
-        chmod 600 deploy_key.pem
+        chmod 600 key-vollmed-deploy.pem
 
         docker save -o vollmed-api.tar vollmed-api_api
 
