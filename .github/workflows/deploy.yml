@@ -26,6 +26,9 @@ jobs:
         sudo chmod +x /usr/local/bin/docker-compose
         docker-compose --version
 
+    - name: Build da imagem Docker
+      run: docker build -t vollmed-api_api .
+
     - name: Roda Docker Compose
       run: docker-compose up -d
 
@@ -38,11 +41,14 @@ jobs:
         echo "$PRIVATE_KEY" > key-vollmed-deploy.pem
         chmod 600 key-vollmed-deploy.pem
 
+        # Salva a imagem Docker localmente
         docker save -o vollmed-api.tar vollmed-api_api
 
+        # Envia os arquivos para o EC2
         scp -o StrictHostKeyChecking=no -i key-vollmed-deploy.pem vollmed-api.tar $USER@$HOST:/home/ubuntu/
         scp -o StrictHostKeyChecking=no -i key-vollmed-deploy.pem init.sql $USER@$HOST:/home/ubuntu/
         scp -o StrictHostKeyChecking=no -i key-vollmed-deploy.pem docker-compose-prod.yaml $USER@$HOST:/home/ubuntu/
         scp -o StrictHostKeyChecking=no -i key-vollmed-deploy.pem script-deploy.sh $USER@$HOST:/home/ubuntu/        
 
+        # Acessa o EC2 e executa o script de deploy
         ssh -i key-vollmed-deploy.pem $USER@$HOST "chmod +x script-deploy.sh && ./script-deploy.sh"
