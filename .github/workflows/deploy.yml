@@ -51,4 +51,4 @@ jobs:
         scp -o StrictHostKeyChecking=no -i key-vollmed-deploy.pem script-deploy.sh $USER@$HOST:/home/ubuntu/        
 
         # Acessa o EC2 e executa o script de deploy
-        ssh -i key-vollmed-deploy.pem $USER@$HOST "chmod +x script-deploy.sh && ./script-deploy.sh"
+        ssh -i key-vollmed-deploy.pem $USER@$HOST "chmod +x script-deploy.sh && ./script-deploy.sh" 
